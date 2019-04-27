@@ -6,17 +6,38 @@
 // defined with this macro as being exported.
 #ifdef EXPORTTEMPLATECLASSDEMO_EXPORTS
 #define EXPORTTEMPLATECLASSDEMO_API __declspec(dllexport)
+#define EXPIMP_TEMPLATE __declspec(dllexport)
 #else
 #define EXPORTTEMPLATECLASSDEMO_API __declspec(dllimport)
+#define EXPIMP_TEMPLATE
 #endif
 
-// This class is exported from the ExportTemplateClassDemo.dll
-class EXPORTTEMPLATECLASSDEMO_API CExportTemplateClassDemo {
+#include <iostream>
+#include <string>
+using namespace std;
+
+// This class is exported from the ConsoleApplication6.dll
+class EXPORTTEMPLATECLASSDEMO_API CConsoleApplication6 {
 public:
-	CExportTemplateClassDemo(void);
+	CConsoleApplication6(void);
+	string showme();
 	// TODO: add your methods here.
 };
 
-extern EXPORTTEMPLATECLASSDEMO_API int nExportTemplateClassDemo;
+extern EXPORTTEMPLATECLASSDEMO_API int nConsoleApplication6;
 
-EXPORTTEMPLATECLASSDEMO_API int fnExportTemplateClassDemo(void);
+EXPORTTEMPLATECLASSDEMO_API int fnConsoleApplication6(void);
+
+
+// This class is exported from the ExportTemplateClassDemo.dll
+template <typename T>
+class EXPIMP_TEMPLATE ClassA {
+public:
+	T add(T val1, T val2);
+};
+
+template <typename T>
+T ClassA<T>::add(T val1, T val2) {
+	return val1 + val2;
+}
+
